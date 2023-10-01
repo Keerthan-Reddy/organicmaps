@@ -16037,6 +16037,38 @@
     zh-Hans = 预約
     zh-Hant = 預約
 
+  [more_on_kayak]
+    tags = android,ios
+    en = Details on KAYAK
+    ar = تفاصيل حول KAYAK
+    cs = Podrobnosti na KAYAK
+    da = Detaljer på KAYAK
+    de = Einzelheiten bei KAYAK
+    el = Λεπτομέρειες στο KAYAK
+    es = Detalles en KAYAK
+    fa = جزئیات در KAYAK
+    fi = Lisätietoa osoitteessa KAYAK
+    fr = Détails sur KAYAK
+    hu = Részletek a KAYAK-on
+    id = Perincian di KAYAK
+    it = Dettagli su KAYAK
+    ja = KAYAK で詳細表示
+    ko = KAYAK의 세부 정보
+    nb = Mer informasjon om KAYAK
+    nl = Details op KAYAK
+    pl = Szczegóły na KAYAK
+    pt = Detalhes em KAYAK
+    ro = Detalii pe KAYAK
+    ru = Подробней на KAYAK
+    sk = Podrobnosti na KAYAK
+    sv = Information på KAYAK
+    th = รายละเอียดบน KAYAK
+    tr = KAYAK hakkında detaylar
+    uk = Докладніше на KAYAK
+    vi = Chi tiết trên KAYAK
+    zh-Hans = KAYAK 上的详细信息
+    zh-Hant = KAYAK 上的詳細資訊
+
   [placepage_call_button]
     tags = ios
     en = Call

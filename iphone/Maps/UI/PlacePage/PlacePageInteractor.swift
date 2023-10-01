@@ -33,6 +33,10 @@ extension PlacePageInteractor: PlacePageInfoViewControllerDelegate {
     MWMPlacePageManagerHelper.openWebsite(placePageData)
   }
   
+  func didPressKayak() {
+    MWMPlacePageManagerHelper.openKayak(placePageData)
+  }
+
   func didPressWikipedia() {
     MWMPlacePageManagerHelper.openWikipedia(placePageData)
   }
