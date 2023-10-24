@@ -278,7 +278,7 @@ UNIT_TEST(Classificator_PoiPriority)
     }, {2, 5}, drule::symbol);
   }
 
-  /// @todo Check that all of sport=* icons priority is bigger than all of pitch, sport_center, playground.
+  /// @todo Check that all of sport=* icons priority is bigger than all of pitch, sports_center, recreation_ground.
 
   {
     CheckPriority({
@@ -301,9 +301,9 @@ UNIT_TEST(Classificator_PoiPriority)
   {
     CheckPriority({
       // 1
-      {"leisure", "playground"},
+      {"landuse", "recreation_ground"},
       // 2
-      {"sport", "cricket"}
+      {"sport", "multi"}
     }, {1, 1}, drule::symbol);
   }
 }
