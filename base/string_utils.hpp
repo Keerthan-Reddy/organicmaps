@@ -121,6 +121,8 @@ bool ReplaceFirst(std::string & str, std::string const & from, std::string const
 
 bool ReplaceLast(std::string & str, std::string const & from, std::string const & to);
 
+bool ReplaceAll(std::string & str, std::string const & from, std::string const & to);
+
 void MakeLowerCaseInplace(std::string & s);
 std::string MakeLowerCase(std::string s);
 bool EqualNoCase(std::string const & s1, std::string const & s2);

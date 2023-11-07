@@ -227,6 +227,16 @@ public enum TtsPlayer
     nativeEnableTurnNotifications(enabled);
   }
 
+  public static boolean shouldAnnounceStreetNames()
+  {
+    return Config.getAnnounceStreetNames();
+  }
+
+  public static void setAnnounceStreetNames(boolean enabled)
+  {
+    Config.setAnnounceStreetNames(enabled);
+  }
+
   private boolean getUsableLanguages(List<LanguageData> outList)
   {
     Resources resources = MwmApplication.from(mContext).getResources();

@@ -42,7 +42,6 @@ private:
 
   std::unique_ptr<platform::GetTextById> m_getCurLang;
 };
-
 /// Generates text message id about the distance of the notification. For example: In 300 meters.
 std::string GetDistanceTextId(Notification const & notification);
 /// Generates text message id for roundabouts.

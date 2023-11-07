@@ -110,26 +110,24 @@ UNIT_TEST(GetDirectionTextIdTest)
 UNIT_TEST(GetTtsTextTest)
 {
   string const engShortJson =
-      "\
-      {\
-      \"in_300_meters\":\"In 300 meters.\",\
-      \"in_500_meters\":\"In 500 meters.\",\
-      \"then\":\"Then.\",\
-      \"make_a_right_turn\":\"Make a right turn.\",\
-      \"make_a_left_turn\":\"Make a left turn.\",\
-      \"you_have_reached_the_destination\":\"You have reached the destination.\"\
-      }";
+      R"litStr({
+      "in_300_meters":"In 300 meters.",
+      "in_500_meters":"In 500 meters.",
+      "then":"Then.",
+      "make_a_right_turn":"Make a right turn.",
+      "make_a_left_turn":"Make a left turn.",
+      "you_have_reached_the_destination":"You have reached the destination."
+      })litStr";
 
   string const rusShortJson =
-      "\
-      {\
-      \"in_300_meters\":\"Через 300 метров.\",\
-      \"in_500_meters\":\"Через 500 метров.\",\
-      \"then\":\"Затем.\",\
-      \"make_a_right_turn\":\"Поворот направо.\",\
-      \"make_a_left_turn\":\"Поворот налево.\",\
-      \"you_have_reached_the_destination\":\"Вы достигли конца маршрута.\"\
-      }";
+      R"litStr({
+      "in_300_meters":"Через 300 метров.",
+      "in_500_meters":"Через 500 метров.",
+      "then":"Затем.",
+      "make_a_right_turn":"Поворот направо.",
+      "make_a_left_turn":"Поворот налево.",
+      "you_have_reached_the_destination":"Вы достигли конца маршрута."
+      })litStr";
 
   GetTtsText getTtsText;
   // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
@@ -154,6 +152,147 @@ UNIT_TEST(GetTtsTextTest)
   TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "Через 300 метров. Поворот налево.", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "Вы достигли конца маршрута.", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Затем. Поворот налево.", ());
+}
+
+UNIT_TEST(GetTtsStreetTextTest)
+{
+  string const engShortJson =
+      R"litStr({
+      "in_300_meters":"In 300 meters.",
+      "in_500_meters":"In 500 meters.",
+      "then":"Then.",
+      "onto":"onto",
+      "make_a_right_turn":"Make a right turn.",
+      "make_a_left_turn":"Make a left turn.",
+      "take_exit_number":"Take exit",
+      "dist_direction_onto_street":"%1$s %2$s %3$s %4$s",
+      "you_have_reached_the_destination":"You have reached the destination."
+      })litStr";
+
+  string const jaShortJson =
+      R"litStr({
+      "in_300_meters":"三百メートル先",
+      "in_500_meters":"五百メートル先",
+      "then":"その先",
+      "onto":"に入ります",
+      "make_a_right_turn":"右折です。",
+      "make_a_left_turn":"左折です。",
+      "make_a_right_turn_street":"右折し",
+      "make_a_left_turn_street":"左折し",
+      "dist_direction_onto_street":"%1$s%2$s %4$s %3$s",
+      "you_have_reached_the_destination":"到着。"
+      })litStr";
+
+  string const faShortJson =
+      R"litStr({
+      "in_300_meters":"ﺩﺭ ﺲﯿﺻﺩ ﻢﺗﺮﯾ",
+      "in_500_meters":"ﺩﺭ ﭖﺎﻨﺻﺩ ﻢﺗﺮﯾ",
+      "then":"ﺲﭙﺳ",
+      "onto":"ﺐﻫ",
+      "make_a_right_turn":"ﺐﻫ ﺭﺎﺴﺗ ﺐﭙﯿﭽﯾﺩ.",
+      "make_a_left_turn":"ﺐﻫ ﭻﭘ ﺐﭙﯿﭽﯾﺩ.",
+      "dist_direction_onto_street":"%1$s %2$s %3$s %4$s",
+      "you_have_reached_the_destination":"ﺶﻣﺍ ﺮﺴﯾﺪﻫ ﺎﯾﺩ."
+      })litStr";
+
+  string const arShortJson =
+      R"litStr({
+      "in_300_meters":"ﺐﻋﺩ ﺙﻼﺜﻤﺋﺓ ﻢﺗﺭ",
+      "in_500_meters":"ﺐﻋﺩ ﺦﻤﺴﻤﺋﺓ ﻢﺗﺭ",
+      "then":"ﺚﻣ",
+      "onto":"ﺈﻟﻯ",
+      "make_a_right_turn":"ﺎﻨﻌﻄﻓ ﻲﻤﻴﻧﺍ.",
+      "make_a_left_turn":"ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.",
+      "dist_direction_onto_street":"%1$s %2$s %3$s %4$s",
+      "you_have_reached_the_destination":"ﻞﻗﺩ ﻮﺼﻠﺗ."
+      })litStr";
+
+  string const huShortJson =
+      R"litStr({
+      "in_300_meters":"Háromszáz méter után",
+      "in_500_meters":"Ötszáz méter után",
+      "go_straight":"Hajtson előre.",
+      "then":"Majd",
+      "onto":"a",
+      "make_a_right_turn":"Forduljon jobbra.",
+      "make_a_left_turn":"Forduljon balra.",
+      "dist_direction_onto_street":"%1$s %2$s %3$s %4$s-re"
+      })litStr";
+
+  string const nlShortJson =
+      R"litStr({
+      "in_300_meters":"Over driehonderd meter",
+      "in_500_meters":"Over vijfhonderd meter",
+      "go_straight":"Rij rechtdoor.",
+      "then":"Daarna",
+      "onto":"naar",
+      "make_a_right_turn":"Sla rechtsaf.",
+      "make_a_right_turn_street":"naar rechts afslaan",
+      "make_a_left_turn":"Sla linksaf.",
+      "make_a_left_turn_street":"naar links afslaan",
+      "dist_direction_onto_street":"%5$s %1$s %2$s %3$s %4$s",
+      "take_exit_number":"Verlaat naar",
+      "take_exit_number_street_verb":"Neem"
+      })litStr";
+
+  GetTtsText getTtsText;
+  // Notification(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
+  //    CarDirection turnDir, Settings::Units lengthUnits, std::string nextStreet)
+  Notification const notification1(500, 0, false, CarDirection::TurnRight,
+                                   measurement_utils::Units::Metric, "Main Street");
+  Notification const notification2(300, 0, false, CarDirection::TurnLeft,
+                                   measurement_utils::Units::Metric, "Main Street");
+  Notification const notification3(300, 0, false, CarDirection::TurnLeft,
+                                   measurement_utils::Units::Metric);
+  Notification const notification4(0, 0, true, CarDirection::TurnLeft,
+                                   measurement_utils::Units::Metric);
+  Notification const notification5(300, 0, false, CarDirection::TurnLeft,
+                                   measurement_utils::Units::Metric, "Capital Parkway");
+  Notification const notification6(300, 0, false, CarDirection::TurnRight,
+                                   measurement_utils::Units::Metric, "Alderbrook Drive");
+  Notification const notification7(300, 195, false, CarDirection::ExitHighwayToRight,
+                                   measurement_utils::Units::Metric, "[NY 25]: Woodhaven Boulevard");
+
+  getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "In 500 meters Make a right turn onto Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "In 300 meters Make a left turn onto Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "In 300 meters. Make a left turn.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Then. Make a left turn.", ());
+
+  getTtsText.ForTestingSetLocaleWithJson(jaShortJson, "ja");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "五百メートル先右折し Main Street に入ります", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "三百メートル先左折し Main Street に入ります", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "三百メートル先左折です。", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "その先 左折です。", ());
+
+  getTtsText.ForTestingSetLocaleWithJson(faShortJson, "fa");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "ﺩﺭ ﭖﺎﻨﺻﺩ ﻢﺗﺮﯾ ﺐﻫ ﺭﺎﺴﺗ ﺐﭙﯿﭽﯾﺩ ﺐﻫ Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "ﺩﺭ ﺲﯿﺻﺩ ﻢﺗﺮﯾ ﺐﻫ ﭻﭘ ﺐﭙﯿﭽﯾﺩ ﺐﻫ Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "ﺩﺭ ﺲﯿﺻﺩ ﻢﺗﺮﯾ ﺐﻫ ﭻﭘ ﺐﭙﯿﭽﯾﺩ.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "ﺲﭙﺳ  ﺐﻫ ﭻﭘ ﺐﭙﯿﭽﯾﺩ.", ());
+
+  getTtsText.ForTestingSetLocaleWithJson(arShortJson, "ar");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "ﺐﻋﺩ ﺙﻼﺜﻤﺋﺓ ﻢﺗﺭ ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "ﺚﻣ  ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.", ());
+
+  getTtsText.ForTestingSetLocaleWithJson(huShortJson, "hu");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Ötszáz méter után Forduljon jobbra a Main Street-re", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "Háromszáz méter után Forduljon balra a Main Street-re", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "Háromszáz méter után Forduljon balra.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Majd Forduljon balra.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification5), "Háromszáz méter után Forduljon balra a Capital Parkway-ra", ()); // -ra suffix for "back" vowel endings
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification6), "Háromszáz méter után Forduljon jobbra az Alderbrook Drive-re", ()); // az for prefixing a vowel
+
+  getTtsText.ForTestingSetLocaleWithJson(nlShortJson, "nl");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Over vijfhonderd meter naar rechts afslaan naar Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "Over driehonderd meter naar links afslaan naar Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "Over driehonderd meter Sla linksaf.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Daarna Sla linksaf.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "In 300 meters Take exit 195 NY 25 Woodhaven Boulevard", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "Háromszáz méter után Kilépés az 195 NY 25 Woodhaven Boulevard-ra", ()); // az for prefixing "hundred ninety five"
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "Neem Over driehonderd meter Verlaat naar 195 NY 25 Woodhaven Boulevard", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "بعد ستمئة قدم انعطف يمينا ﺈﻟﻯ Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "بع ﺙﻼﺜﻤمئة قدم انعطف يمينا ﺈﻟﻯ Main Street", ());
 }
 
 UNIT_TEST(GetAllSoundedDistMetersTest)
