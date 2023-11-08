@@ -510,6 +510,7 @@
 	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mehr</string>
+	<string name="more_on_kayak">Einzelheiten bei KAYAK</string>
 	<string name="placepage_edit_bookmark_button">Lesezeichen bearbeiten</string>
 	<string name="editor_comment_hint">Kommentar…</string>
 	<string name="editor_reset_edits_message">Alle lokalen Korrekturen verwerfen</string>

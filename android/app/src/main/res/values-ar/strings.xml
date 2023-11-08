@@ -527,6 +527,7 @@
 	<string name="hour">س</string>
 	<string name="minute">د</string>
 	<string name="placepage_more_button">المزيد</string>
+	<string name="more_on_kayak">تفاصيل حول KAYAK</string>
 	<string name="placepage_edit_bookmark_button">تحرير العلامة المرجعية</string>
 	<string name="editor_comment_hint">تعليق…</string>
 	<string name="editor_reset_edits_message">هل تريد مسح كافة التغييرات المحلية؟</string>

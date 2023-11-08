@@ -517,6 +517,7 @@
 	<string name="hour">ч</string>
 	<string name="minute">мин</string>
 	<string name="placepage_more_button">Ещё</string>
+	<string name="more_on_kayak">Подробней на KAYAK</string>
 	<string name="placepage_edit_bookmark_button">Редактировать метку</string>
 	<string name="editor_comment_hint">Коментарий…</string>
 	<string name="editor_reset_edits_message">Сбросить все локальные правки?</string>

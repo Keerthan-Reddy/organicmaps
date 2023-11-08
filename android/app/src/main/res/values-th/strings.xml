@@ -490,6 +490,7 @@
 	<string name="hour">ชม.</string>
 	<string name="minute">น.</string>
 	<string name="placepage_more_button">เพิ่มเติม</string>
+	<string name="more_on_kayak">รายละเอียดบน KAYAK</string>
 	<string name="placepage_edit_bookmark_button">แก้ไข Bookmark</string>
 	<string name="editor_comment_hint">ข้อคิดเห็น</string>
 	<string name="editor_reset_edits_message">ตั้งค่าการเปลี่ยนแปลงท้องถิ่นทั้งหมด</string>

@@ -510,6 +510,7 @@
 	<string name="hour">u</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Meer</string>
+	<string name="more_on_kayak">Details op KAYAK</string>
 	<string name="placepage_edit_bookmark_button">Bladwijzer bewerken</string>
 	<string name="editor_comment_hint">Reactie…</string>
 	<string name="editor_reset_edits_message">Alle lokale wijzigingen herstellen?</string>

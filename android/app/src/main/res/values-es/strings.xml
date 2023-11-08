@@ -514,6 +514,7 @@
 	<string name="hour">h</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Más</string>
+	<string name="more_on_kayak">Detalles en KAYAK</string>
 	<string name="placepage_edit_bookmark_button">Editar marcador</string>
 	<string name="editor_comment_hint">Comentario…</string>
 	<string name="editor_reset_edits_message">¿Restablecer todos los cambios locales?</string>

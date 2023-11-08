@@ -495,6 +495,7 @@
 	<string name="miles_per_hour">mph</string>
 	<string name="minute">min</string>
 	<string name="placepage_more_button">Mai mult</string>
+	<string name="more_on_kayak">Detalii pe KAYAK</string>
 	<string name="placepage_edit_bookmark_button">Modifică locul preferat</string>
 	<string name="editor_comment_hint">Comentariu…</string>
 	<string name="editor_reset_edits_message">Ștergi toate modificările locale?</string>

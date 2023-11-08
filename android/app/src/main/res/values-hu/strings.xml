@@ -502,6 +502,7 @@
 	<string name="hour">ó</string>
 	<string name="minute">p</string>
 	<string name="placepage_more_button">Még</string>
+	<string name="more_on_kayak">Részletek a KAYAK-on</string>
 	<string name="placepage_edit_bookmark_button">Könyvjelző szerkesztése</string>
 	<string name="editor_comment_hint">Megjegyzés…</string>
 	<string name="editor_reset_edits_message">Elveti az összes helyi módosítást?</string>
