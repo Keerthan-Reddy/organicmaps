@@ -9,7 +9,8 @@
 #include <sstream>
 #include <string>
 
-#include "private.h"
+namespace osm
+{
 
 using namespace std;
 using strings::to_uint64;
@@ -85,8 +86,6 @@ const map<string, string> KAYAK_DOMAINS = {
 };
 }  // namespace
 
-namespace osm
-{
 string GetKayakHotelURL(const string & countryIsoCode, uint64_t kayakHotelId,
                         const string & kayakHotelName, uint64_t kayakCityId,
                         time_t firstDay, time_t lastDay)

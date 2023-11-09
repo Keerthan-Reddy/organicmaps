@@ -1898,9 +1898,7 @@ Java_app_organicmaps_Framework_nativeGetKayakHotelLink(JNIEnv * env, jclass, jst
                                                   jni::ToNativeString(env, uri),
                                                   static_cast<time_t>(firstDaySec),
                                                   static_cast<time_t>(lastDaySec));
-  if (url.empty())
-      return nullptr;
-  return jni::ToJavaString(env, url);
+  return url.empty() ? nullptr : jni::ToJavaString(env, url);
 }
 
 }  // extern "C"

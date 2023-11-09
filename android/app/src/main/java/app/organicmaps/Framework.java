@@ -430,5 +430,5 @@ public class Framework
    */
   @Nullable
   public static native String nativeGetKayakHotelLink(@NonNull String countryIsoCode, @NonNull String uri,
-                                                      Date firstDay, Date lastDay);
+                                                      @NonNull Date firstDay, @NonNull Date lastDay);
 }
