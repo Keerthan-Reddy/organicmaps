@@ -250,49 +250,70 @@ UNIT_TEST(GetTtsStreetTextTest)
                                    measurement_utils::Units::Metric, "Capital Parkway");
   Notification const notification6(300, 0, false, CarDirection::TurnRight,
                                    measurement_utils::Units::Metric, "Alderbrook Drive");
-  Notification const notification7(300, 195, false, CarDirection::ExitHighwayToRight,
-                                   measurement_utils::Units::Metric, "[NY 25]: Woodhaven Boulevard");
+  Notification const notification7(1000, 0, false, CarDirection::TurnRight,
+                                   measurement_utils::Units::Metric, "[195] [NY 25]: Woodhaven Boulevard");
+  Notification const notification8(1000, 0, false, CarDirection::TurnRight,
+                                   measurement_utils::Units::Metric, "[1950] [NY 25]: Woodhaven Boulevard");
 
   getTtsText.ForTestingSetLocaleWithJson(engShortJson, "en");
   TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "In 500 meters Make a right turn onto Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "In 300 meters Make a left turn onto Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "In 300 meters. Make a left turn.", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Then. Make a left turn.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "Take exit 195; NY 25; Woodhaven Boulevard", ());
 
   getTtsText.ForTestingSetLocaleWithJson(jaShortJson, "ja");
   TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "五百メートル先右折し Main Street に入ります", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "三百メートル先左折し Main Street に入ります", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "三百メートル先左折です。", ());
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "その先 左折です。", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "その先左折です。", ());
 
   getTtsText.ForTestingSetLocaleWithJson(faShortJson, "fa");
   TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "ﺩﺭ ﭖﺎﻨﺻﺩ ﻢﺗﺮﯾ ﺐﻫ ﺭﺎﺴﺗ ﺐﭙﯿﭽﯾﺩ ﺐﻫ Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "ﺩﺭ ﺲﯿﺻﺩ ﻢﺗﺮﯾ ﺐﻫ ﭻﭘ ﺐﭙﯿﭽﯾﺩ ﺐﻫ Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "ﺩﺭ ﺲﯿﺻﺩ ﻢﺗﺮﯾ ﺐﻫ ﭻﭘ ﺐﭙﯿﭽﯾﺩ.", ());
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "ﺲﭙﺳ  ﺐﻫ ﭻﭘ ﺐﭙﯿﭽﯾﺩ.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "ﺲﭙﺳ ﺐﻫ ﭻﭘ ﺐﭙﯿﭽﯾﺩ.", ());
 
   getTtsText.ForTestingSetLocaleWithJson(arShortJson, "ar");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "ﺐﻋﺩ ﺦﻤﺴﻤﺋﺓ ﻢﺗﺭ ﺎﻨﻌﻄﻓ ﻲﻤﻴﻧﺍ ﺈﻟﻯ Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "ﺐﻋﺩ ﺙﻼﺜﻤﺋﺓ ﻢﺗﺭ ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ ﺈﻟﻯ Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "ﺐﻋﺩ ﺙﻼﺜﻤﺋﺓ ﻢﺗﺭ ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.", ());
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "ﺚﻣ  ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "ﺚﻣ ﺎﻨﻌﻄﻓ ﻲﺳﺍﺭﺍ.", ());
 
   getTtsText.ForTestingSetLocaleWithJson(huShortJson, "hu");
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Ötszáz méter után Forduljon jobbra a Main Street-re", ());
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "Háromszáz méter után Forduljon balra a Main Street-re", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Ötszáz méter után Forduljon jobbra a Main Streetre", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "Háromszáz méter után Forduljon balra a Main Streetre", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "Háromszáz méter után Forduljon balra.", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Majd Forduljon balra.", ());
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification5), "Háromszáz méter után Forduljon balra a Capital Parkway-ra", ()); // -ra suffix for "back" vowel endings
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification6), "Háromszáz méter után Forduljon jobbra az Alderbrook Drive-re", ()); // az for prefixing a vowel
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification5), "Háromszáz méter után Forduljon balra a Capital Parkwayra", ()); // -ra suffix for "back" vowel endings
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "Forduljon jobbra a 195; NY 25; Woodhaven Boulevardra", ()); // a for prefixing "hundred ninety five"
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification8), "Forduljon jobbra az 1950; NY 25; Woodhaven Boulevardra", ()); // az for prefixing "thousand nine hundred fifty"
+
+  Notification const notificationHuRa1(300, 0, false, CarDirection::TurnRight, measurement_utils::Units::Metric, "puszta");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notificationHuRa1), "Háromszáz méter után Forduljon jobbra a pusztára", ());
+  Notification const notificationHuRa2(300, 0, false, CarDirection::TurnRight, measurement_utils::Units::Metric, "tanya");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notificationHuRa2), "Háromszáz méter után Forduljon jobbra a tanyára", ());
+  Notification const notificationHuRa3(300, 0, false, CarDirection::TurnRight, measurement_utils::Units::Metric, "utca");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notificationHuRa3), "Háromszáz méter után Forduljon jobbra az utcára", ());
+  Notification const notificationHuRa4(300, 0, false, CarDirection::TurnRight, measurement_utils::Units::Metric, "útja");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notificationHuRa4), "Háromszáz méter után Forduljon jobbra az útjára", ());
+  Notification const notificationHuRa5(300, 0, false, CarDirection::TurnRight, measurement_utils::Units::Metric, "allé");
+  TEST_EQUAL(getTtsText.GetTurnNotification(notificationHuRa5), "Háromszáz méter után Forduljon jobbra az alléra", ());
 
   getTtsText.ForTestingSetLocaleWithJson(nlShortJson, "nl");
   TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "Over vijfhonderd meter naar rechts afslaan naar Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification2), "Over driehonderd meter naar links afslaan naar Main Street", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification3), "Over driehonderd meter Sla linksaf.", ());
   TEST_EQUAL(getTtsText.GetTurnNotification(notification4), "Daarna Sla linksaf.", ());
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "In 300 meters Take exit 195 NY 25 Woodhaven Boulevard", ());
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "Háromszáz méter után Kilépés az 195 NY 25 Woodhaven Boulevard-ra", ()); // az for prefixing "hundred ninety five"
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "Neem Over driehonderd meter Verlaat naar 195 NY 25 Woodhaven Boulevard", ());
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "بعد ستمئة قدم انعطف يمينا ﺈﻟﻯ Main Street", ());
-  TEST_EQUAL(getTtsText.GetTurnNotification(notification1), "بع ﺙﻼﺜﻤمئة قدم انعطف يمينا ﺈﻟﻯ Main Street", ());
+  TEST_EQUAL(getTtsText.GetTurnNotification(notification7), "Verlaat naar 195; NY 25; Woodhaven Boulevard", ());
+
+  // possible future test cases (needs confirmation)
+  // "Forduljon jobbra az East Learning Lane" //é-re
+  // "Száz méter után Forduljon jobbra a Test Drive" //é-re
+  // "útgyűrű" //-re
+  // "Forduljon balra a Road 10" // -re
+  // "Hétszáz láb után Forduljon balra a Road 20" // -ra
+
 }
 
 UNIT_TEST(GetAllSoundedDistMetersTest)

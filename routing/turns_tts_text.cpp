@@ -216,7 +216,8 @@ uint8_t CategorizeHungarianLastWordVowels(std::string const & myString)
 
 std::string GetTtsText::GetTurnNotification(Notification const & notification) const
 {
-  std::string dirKey = GetDirectionTextId(notification);
+  const std::string localeKey = GetLocale();
+  const std::string dirKey = GetDirectionTextId(notification);
   std::string dirStr = GetTextById(dirKey);
 
   if (notification.m_distanceUnits == 0 && !notification.m_useThenInsteadOfDistance && notification.m_nextStreet.empty())
@@ -236,8 +237,13 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
     return {};
 
   std::string thenStr;
-  if (notification.m_useThenInsteadOfDistance)
-    thenStr = GetTextById("then") + " "; // add space only if needed
+  if (notification.m_useThenInsteadOfDistance) {
+    // add "then" and space only if needed, for appropriate languages
+    if(localeKey != "ja")
+      thenStr = GetTextById("then") + " ";
+    else
+      thenStr = GetTextById("then");
+  }
 
   std::string distStr;
   if (notification.m_distanceUnits > 0)
@@ -293,15 +299,15 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
     //   a lack of a $5 position in the formatter string
     std::string dirVerb = GetTextById(dirKey+"_street_verb");
 
-    if (GetLocale() == "hu") {
+    if (localeKey == "hu") {
       HungarianBaseWordTransform(streetOut); // modify streetOut's last letter if it's a vowel
 
       // adjust the -re suffix in the formatter string based on last-word vowels
       uint8_t hungarianism = CategorizeHungarianLastWordVowels(streetOut);
       if (hungarianism == 1) {
-        //strings::ReplaceLast(distDirOntoStreetStr, "-re", "-re"); // leave as-is
+        strings::ReplaceLast(distDirOntoStreetStr, "-re", "re"); // just remove hyphenation
       } else if (hungarianism == 2) {
-        strings::ReplaceLast(distDirOntoStreetStr, "-re", "-ra");
+        strings::ReplaceLast(distDirOntoStreetStr, "-re", "ra"); // change re to ra without hyphen
       } else {
         strings::ReplaceLast(distDirOntoStreetStr, "-re", ""); // clear it
       }
@@ -310,7 +316,8 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
       // 1, 5, and 1000 start with vowels but not 10 or 100
       static const std::regex rHun("^[ \\[]*[5aeiouáéíóúöüőű]|1[^\\d]|1\\d\\d\\d[^\\d]", std::regex_constants::icase);
       std::smatch ma;
-      if (std::regex_search(streetOut, ma, rHun) && ma.size() > 0) {
+      // match based on the original string so we get [123] parsing
+      if (std::regex_search(notification.m_nextStreet, ma, rHun) && ma.size() > 0) {
         if (ontoStr == "a")
           ontoStr = "az";
         if (dirStr == "Kilépés a")
@@ -343,15 +350,18 @@ std::string GetTtsText::GetTurnNotification(Notification const & notification) c
     return thenStr + cleanOut;
   }
 
-  if (distStr.empty()) {
-    std::string out = thenStr + " " + dirStr;
-    LOG(LINFO, ("TTS", out));
-    return out;
+  std::string out;
+  if (!distStr.empty()) {
+    // add distance and/or space only if needed, for appropriate languages
+    if(localeKey != "ja")
+      out = thenStr + distStr + " " + dirStr;
+    else
+      out = thenStr + distStr + dirStr;
   } else {
-    std::string out = thenStr + distStr + " " + dirStr;
-    LOG(LINFO, ("TTS", out));
-    return out;
+    out = thenStr + dirStr;
   }
+  LOG(LINFO, ("TTS", out));
+  return out;
 }
 
 std::string GetTtsText::GetSpeedCameraNotification() const

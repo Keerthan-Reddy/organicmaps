@@ -503,7 +503,7 @@
     zh-Hant = 出口.
 
   [onto]
-    comment = Used in dist_direction_onto_street in position 3 unless take_exit_number is specified. May be blank.
+    comment = Used in dist_direction_onto_street in position 3 unless take_exit_number is specified. For languages that don't have an "onto" word, it must be specified as blank for that language.
     en = onto
     ar = إلى
     be = на
@@ -584,7 +584,7 @@
     zh-Hant = 出口 上
 
   [take_exit_number_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. (There is no take_exit_number_street). May be blank.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. (There is no take_exit_number_street). For languages that don't have an "onto" word, it must be specified as blank for that language.
     ja = 
     nl = Neem
 
@@ -1389,44 +1389,15 @@
     zh-Hant = 然後
 
   [dist_direction_onto_street]
-    comment = %1$s is the distance like in_500_meters, %2$s is the direction like make_a_right_turn_street or make_a_right_turn if unavailable, %3$s is "onto" unless the turn is an exit number, %4$s is the name/number of the street/exit, and %5$s is an optional turn verb particle
+    comment = %1$s is the distance like in_500_meters, %2$s is the direction like make_a_right_turn_street or make_a_right_turn if unavailable, %3$s is "onto" unless the turn is an exit number, %4$s is the name/number of the street/exit, and %5$s is an optional turn verb particle. All languages inherit from the English default unless specified.
     en = %1$s %2$s %3$s %4$s
-    ar = %1$s %2$s %3$s %4$s
-    be = %1$s %2$s %3$s %4$s
-    cs = %1$s %2$s %3$s %4$s
-    da = %1$s %2$s %3$s %4$s
-    de = %1$s %2$s %3$s %4$s
-    el = %1$s %2$s %3$s %4$s
-    es = %1$s %2$s %3$s %4$s
-    es-MX = %1$s %2$s %3$s %4$s
-    eu = %1$s %2$s %3$s %4$s
-    fa = %1$s %2$s %3$s %4$s
     fi = %2$s %3$s %4$s %1$s
-    fr = %1$s %2$s %3$s %4$s
     hi = %1$s %4$s %3$s %2$s
-    hr = %1$s %2$s %3$s %4$s
     hu = %1$s %2$s %3$s %4$s-re
-    id = %1$s %2$s %3$s %4$s
-    it = %1$s %2$s %3$s %4$s
     ja = %1$s%5$s%4$s%3$s%2$s
-    ko = %1$s %2$s %3$s %4$s
     mr = %1$s %4$s %3$s %2$s
-    nb = %1$s %2$s %3$s %4$s
     nl = %5$s %1$s %2$s %3$s %4$s
-    pl = %1$s %2$s %3$s %4$s
-    pt = %1$s %2$s %3$s %4$s
-    pt-BR = %1$s %2$s %3$s %4$s
-    ro = %1$s %2$s %3$s %4$s
-    ru = %1$s %2$s %3$s %4$s
-    sk = %1$s %2$s %3$s %4$s
-    sv = %1$s %2$s %3$s %4$s
-    sw = %1$s %2$s %3$s %4$s
-    th = %1$s %2$s %3$s %4$s
     tr = %1$s %4$s %3$s %2$s
-    uk = %1$s %2$s %3$s %4$s
-    vi = %1$s %2$s %3$s %4$s
-    zh-Hans = %1$s %2$s %3$s %4$s
-    zh-Hant = %1$s %2$s %3$s %4$s
 
   [take_the_1_exit]
     en = Take the first exit.
