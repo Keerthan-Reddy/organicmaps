@@ -46,17 +46,20 @@ void GetTtsText::ForTestingSetLocaleWithJson(std::string const & jsonBuffer, std
   m_getCurLang = platform::ForTestingGetTextByIdFactory(jsonBuffer, locale);
 }
 
-// Returns -1 for not found, positive for found
+// Returns -1 for not found, positive for which item in the haystack was found
 long FindInStrArray(const std::vector<std::string>& haystack, std::string& needle)
 {
-  const auto begin = haystack.cbegin();
-  const auto end = haystack.cend();
-  auto it = std::find(begin, end, needle);
-  if (end != it) {
-    return std::distance(begin, it);
-  } else {
-    return -1;
+  auto begin = haystack.begin();
+  for(std::vector<std::string>::const_iterator i = begin; i != haystack.end(); ++i) {
+    std::string item = *i;
+    std::string::size_type idx = needle.find(item);
+    if (idx != std::string::npos) {
+      long item_i = std::distance( begin, i );
+      LOG(LINFO, ("TTSf found", item_i, item, idx, needle));
+      return item_i;
+    }
   }
+  return -1;
 }
 
 void HungarianBaseWordTransform(std::string& myString) {
@@ -120,28 +123,22 @@ uint8_t CategorizeHungarianAcronymsAndNumbers(std::string const & myString)
 
   //'100', // száz back
 
+  strings::UniString original = strings::MakeUniString(myString);
   for (std::string::size_type i = myString.size()-1; i > 0; i--) {
-
     // special is 2 char, so check last 2
-    std::string twoBuf = "";
-    twoBuf.append(1, myString[i-1]);
-    twoBuf.append(1, myString[i]);
+    std::string oneBuf = strings::ToUtf8(strings::Substring(original, i, 1));
+    std::string twoBuf = strings::ToUtf8(strings::Substring(original, i-1, 2));
+    std::string threeBuf = strings::ToUtf8(strings::Substring(original, i-2, 3));
     if (FindInStrArray(specialCaseFront, twoBuf) != -1) {
       return 1;
     }
     if (FindInStrArray(specialCaseBack, twoBuf) != -1) {
       return 2;
     }
-    std::string threeBuf = "";
-    threeBuf.append(1, myString[i-2]);
-    threeBuf.append(1, myString[i-1]);
-    threeBuf.append(1, myString[i]);
     if (threeBuf == "100") {
       return 2;
     }
 
-    std::string oneBuf = "";
-    oneBuf.append(1, myString[i]);
     if (FindInStrArray(frontNames, oneBuf) != -1) {
       return 1;
     }
@@ -183,34 +180,47 @@ uint8_t CategorizeHungarianLastWordVowels(std::string const & myString)
 
   // if the last word is an acronym/number like M5, check those instead
   if (allUppercaseNum) {
+    LOG(LINFO, ("TTS all caps/num:", myString));
     return CategorizeHungarianAcronymsAndNumbers(myString);
   }
 
   bool foundIndeterminate = false;
 
   // find last vowel in last word, since it discriminates in all cases
+  // note we can't use single chars like myString[i] because of multi-byte characters
+  // so we use std::string functions and wchar instead
+  strings::UniString original = strings::MakeUniString(myString);
   for (std::string::size_type i = myString.size()-1; i > 0; i--) {
-    std::string lowerC = "";
-    lowerC.append(1, std::tolower(myString[i]));
+    std::string oneBuf = strings::ToUtf8(strings::Substring(original, i-1, i));
+
+    std::string lowerC = strings::MakeLowerCase(oneBuf);
     if (FindInStrArray(front, lowerC) != -1) {
+      LOG(LINFO, ("TTSnhf", lowerC, front));
       return 1;
     }
     if (FindInStrArray(back, lowerC) != -1) {
+      LOG(LINFO, ("TTSnhb", lowerC, back));
       return 2;
     }
     if (FindInStrArray(indeterminate, lowerC) != -1) {
+      LOG(LINFO, ("TTSnhi", lowerC, indeterminate));
       foundIndeterminate = true;
     }
-    if (myString[i] == ' ' && foundIndeterminate == true) {
+    if (!oneBuf.compare(" ") && foundIndeterminate == true) {
+      LOG(LINFO, ("TTSnhs", oneBuf));
       // if we've hit a space with only indeterminates, it's back
       return 2;
     }
-    if (myString[i] == ' ' && foundIndeterminate == false) {
+    if (!oneBuf.compare(" ") && foundIndeterminate == false) {
       // if we've hit a space with no vowels at all, check for numbers
       // and acronyms
+      LOG(LINFO, ("TTSnhn", oneBuf));
       return CategorizeHungarianAcronymsAndNumbers(myString);
     }
+    // we got here, something is wrong
+    LOG(LINFO, ("TTSnhx", oneBuf));
   }
+  LOG(LINFO, ("TTSnhd", myString));
   return 2; // default
 }
 

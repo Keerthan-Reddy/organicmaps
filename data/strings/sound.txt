@@ -543,7 +543,7 @@
     zh-Hant = 上
 
   [take_exit_number]
-    comment = Used in dist_direction_onto_street instead of "Exit" when there's an exit number after. Replaces "onto".
+    comment = Used in dist_direction_onto_street instead of "Exit" when there's an exit number after. Replaces the "onto" string as well. (There is no take_exit_number_street since this string is only used when announcing street names anyway.)
     en = Take exit
     ar = خروج إلى
     be = З'езд на
@@ -584,7 +584,7 @@
     zh-Hant = 出口 上
 
   [take_exit_number_street_verb]
-    comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. (There is no take_exit_number_street). For languages that don't have an "onto" word, it must be specified as blank for that language.
+    comment = Optionally used inside dist_direction_onto_street in position 5 when take_exit_number needs to be split into two parts. For languages that don't have a stand-alone "onto" word but still have a %5 formatter position, it must be specified as blank.
     ja = 
     nl = Neem
 
