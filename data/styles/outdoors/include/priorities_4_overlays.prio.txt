@@ -749,10 +749,10 @@ amenity-shelter                                     # icon z13- (also has captio
 highway-ford                                        # icon z14- and pathtext z16- (also has line z13-)
 === 2850
 
-highway-bridleway                                   # pathtext z15- (also has line z14-)
-highway-bridleway-bridge                            # pathtext z15- (also has line z14-, line::bridgeblack z17-, line::bridgewhite z15-)
-highway-bridleway-permissive                        # pathtext z15- (also has line z14-)
-highway-bridleway-tunnel                            # pathtext z15- (also has line z14-, line::tunnelBackground z17-, line::tunnelCasing z17-)
+highway-bridleway                                   # pathtext z15- (also has line z13-)
+highway-bridleway-bridge                            # pathtext z15- (also has line z13-, line::bridgeblack z17-, line::bridgewhite z15-)
+highway-bridleway-permissive                        # pathtext z15- (also has line z13-)
+highway-bridleway-tunnel                            # pathtext z15- (also has line z13-, line::tunnelBackground z17-, line::tunnelCasing z17-)
 highway-footway-alpine_hiking                       # pathtext z15- (also has line z11-)
 highway-footway-demanding_alpine_hiking             # pathtext z15- (also has line z11-)
 highway-footway-demanding_mountain_hiking           # pathtext z15- (also has line z11-)
