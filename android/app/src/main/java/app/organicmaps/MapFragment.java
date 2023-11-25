@@ -210,6 +210,7 @@ public class MapFragment extends BaseMwmFragment implements View.OnTouchListener
         .show();
   }
 
+  @SuppressWarnings("deprecated")
   private int getDensityDpiOld()
   {
     final DisplayMetrics metrics = new DisplayMetrics();

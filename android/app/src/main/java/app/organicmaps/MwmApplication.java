@@ -14,6 +14,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.UiThread;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
@@ -315,7 +316,7 @@ public class MwmApplication extends Application implements Application.ActivityL
   {
     Logger.d(TAG, "activity = " + activity);
     Utils.showOnLockScreen(Config.isShowOnLockScreenEnabled(), activity);
-    mSensorHelper.setRotation(activity.getWindowManager().getDefaultDisplay().getRotation());
+    mSensorHelper.setRotation(ContextCompat.getDisplayOrDefault(activity).getRotation());
     mTopActivity = new WeakReference<>(activity);
   }
 

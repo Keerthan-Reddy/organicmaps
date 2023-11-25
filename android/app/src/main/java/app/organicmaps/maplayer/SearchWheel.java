@@ -4,9 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.DrawableRes;
@@ -14,6 +12,9 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.window.layout.WindowMetrics;
+import androidx.window.layout.WindowMetricsCalculator;
+
 import app.organicmaps.R;
 import app.organicmaps.routing.RoutingController;
 import app.organicmaps.search.SearchEngine;
@@ -110,11 +111,11 @@ public class SearchWheel implements View.OnClickListener
     if (mSearchLayout == null)
       return false;
 
-    DisplayMetrics displayMetrics = new DisplayMetrics();
-    WindowManager windowmanager = (WindowManager) mFrame.getContext().getSystemService(Context.WINDOW_SERVICE);
-    windowmanager.getDefaultDisplay().getMetrics(displayMetrics);
+    final Context context = mFrame.getContext();
+    WindowMetrics windowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(context);
+
     // Get available screen height in DP
-    int height =  Math.round(displayMetrics.heightPixels / displayMetrics.density);
+    final int height = windowMetrics.getBounds().height();
     // If height is less than 400dp, the search wheel in a straight line
     // In this case, move the pivot for the animation
     if (height < 400)
